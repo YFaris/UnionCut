@@ -3,7 +3,7 @@ AS for SOLOv2 used for evaluation, please refer to this unofficial implementatio
 https://github.com/HibikiJie/SOLOV2/tree/master
 
 Our implemented SOLOv2 was based on that project.
-However, since there is no license allocated to that project by the repository owner, we cannot share our customized implementation
+However, since there is no license allocated to that project by the repository owner, we cannot share our customized implementation for now.
 """
 
 import numpy as np
@@ -45,13 +45,11 @@ def IoUs(predict_masks, gt_masks):
     # return the result
     return iou_matrix
 
-def Pseudo_PQ(net, dataloader, mapping, device):
+def Pseudo_PQ(net, dataloader, device):
     """
     evaluate the performance of the instance/panoptic segmentation model on the given dataset trained by pseudo labels
     net: model to be evaluated
     dataloader: dataset wrapped in a dataloader
-    mapping: mapping from cluster id to category num
-    cls_num: the number of ground truth categories, including background
     device: cuda or cpu
     """
     from Evaluation.SOLOv2.predict import predict
@@ -78,16 +76,11 @@ def Pseudo_PQ(net, dataloader, mapping, device):
         if predicted_categories is None:
             continue
         else:
-            if len(mapping) > 1:
-                # map predicted categories to real categories
-                predicted_categories = np.array([mapping[predicted_category][0] for predicted_category in predicted_categories])
-                predicted_masks = predicted_masks[predicted_categories != 0, :, :]  # remove background channel
-                predicted_categories = predicted_categories[predicted_categories != 0] - 1  # remove background channel
             if len(predicted_categories) == 0:
                 continue
             # obtain the ground truth masks, bboxes and categories
             gt_masks = torch_instance_label_masks[0].numpy()
-            gt_categories = categories[0] if len(mapping) > 1 else [0 for _ in categories[0]]
+            gt_categories = [0 for _ in categories[0]]
             # obtain iou matrix between predicted masks and gt masks
             iou_matrix = IoUs(predicted_masks, gt_masks)
             # only ious that prediction matches gt are counted
@@ -178,7 +171,7 @@ def SOLOv2Evaluation(net_path):
     mPQ = PQ(net, loader, device)
     return mPQ
 
-def SOLOv2EvaluationPseudo(model=None, mapping=None, net_path="/home/wzl/PhysicalImageAugmentation/Evaluation/SOLOv2/module/net_params_TokenCut_5_0_cls_feature_21000.pkl", root_path="/db/shared/segmentation/VOCdevkit/",
+def SOLOv2EvaluationPseudo(model=None, net_path="/home/wzl/PhysicalImageAugmentation/Evaluation/SOLOv2/module/net_params_TokenCut_5_0_cls_feature_21000.pkl", root_path="/db/shared/segmentation/VOCdevkit/",
                                        h5_path="/home/psxzw11/PhysicalImageAugmentation/PseudoMaskGenration/baseline_voc_pseudo_labels.h5",
                                        method="TokenCut", fold=5, fold_num=0,partition="train", cluster=True,
                                        n_cluster=30, feature_mode="cls", feature="feature"):
@@ -196,12 +189,6 @@ def SOLOv2EvaluationPseudo(model=None, mapping=None, net_path="/home/wzl/Physica
         # model = torch.load(net_path)
     model.to(device)
     model.eval()
-    if mapping is None:
-        # initialize mapping
-        _, mapping = VOC_PseudoLabelLoaderInstance(BATCH_SIZE=1, root_path=root_path,
-                                           h5_path=h5_path,
-                                           method=method, fold=fold, fold_num=fold_num,partition="train", cluster=cluster,
-                                           n_cluster=n_cluster, feature_mode=feature_mode, feature=feature)
     # initialize dataset
     testset = VOC_InstanceSegmentation(partition=partition,
                                        image_names=VOC_PseudoLabelLoader(root_path=root_path, h5_path=h5_path, method=method, fold=fold,
@@ -216,7 +203,7 @@ def SOLOv2EvaluationPseudo(model=None, mapping=None, net_path="/home/wzl/Physica
         drop_last=True,
         num_workers=1,
     )
-    mPQ = Pseudo_PQ(model, loader, mapping, device)
+    mPQ = Pseudo_PQ(model, loader, device)
     return mPQ
 
 def setup_seed(seed=3407):
