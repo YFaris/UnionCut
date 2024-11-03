@@ -79,6 +79,38 @@ Now you can follow the instructions of CutLER to generate pseudo annotations for
 > 1. Generate pseudo annotations for ImageNet with our MaskCut+UnionSeg
 >> ```
 >> cd maskcut
->> python maskcut.py --vit-arch base --patch-size 8 --tau 0.15 --fixed_size 480 --N 3 --num-folder-per-job 1000 --job-index 0 --dataset-path /path/to/dataset/traindir --out-dir /path/to/save/annotations --use-cupy True
+>> python maskcut.py --vit-arch base --patch-size 8 --tau 0.15 --fixed_size 480 --N 3 --num-folder-per-job 1000 --job-index 0 --dataset-path /path/to/dataset/traindir --out-dir /path/to/save/annotations --use-cupy True --realN 5
 >> ```
-Note that the argument --N cannot directly change the maximum discovery times of our MaskCut+UnionSeg as it is in CutLER's original implementation. It only affects the filename of generated annotation files. During our 
+Note that --realN is the argument for changing the maximum discovery times. The argument --N cannot directly change the maximum discovery times of our MaskCut+UnionSeg, as it does in CutLER's original implementation. It only affects the filename of generated annotation files. We recommend always setting --N to 3 to avoid errors and changing --realN to adjust discovery times.
+
+If you run the command above with multiple processes for acceleration, you also need to merge the output of each process following official CutLER's instructions:
+> 2. Merge results
+>> ```
+>> python merge_jsons.py --base-dir /path/to/save/annotations --num-folder-per-job 2 --fixed-size 480 --tau 0.15 --N 3 --save-path imagenet_train_fixsize480_tau0.15_N3.json
+>> ```
+
+Now you can use CutLER's training code to train a class-agnostic [Cascade Mask-RCNN](https://openaccess.thecvf.com/content_cvpr_2018/papers/Cai_Cascade_R-CNN_Delving_CVPR_2018_paper.pdf):
+> 3. first round warm-up training
+>> ```
+>> cd cutler
+>> export DETECTRON2_DATASETS=/path/to/DETECTRON2_DATASETS/
+>> python train_net.py --num-gpus 8 --config-file model_zoo/configs/CutLER-ImageNet/cascade_mask_rcnn_R_50_FPN.yaml
+>> ```
+You should stop training at 10,000 iterations to avoid underfitting since we apply a big weight decay in the first round warm-up training.
+
+Then you shall use the resulted model to update pseudo-annotations of each image in the dataset:
+> 4. update annotations
+>> ```
+>> python train_net.py --num-gpus 8 \
+>> --config-file model_zoo/configs/CutLER-ImageNet/cascade_mask_rcnn_R_50_FPN.yaml \
+>> --test-dataset imagenet_train \
+>> --eval-only TEST.DETECTIONS_PER_IMAGE 30 \
+>> MODEL.WEIGHTS output/model_0009999.pth \ # load previous stage/round checkpoints
+>> OUTPUT_DIR output/ # path to save model predictions
+>>
+>> python tools/get_self_training_ann.py \
+>> --new-pred output/inference/coco_instances_results.json \ # load model predictions
+>> --prev-ann DETECTRON2_DATASETS/imagenet/annotations/imagenet_train_fixsize480_tau0.15_N3.json \ # path to the old annotation file.
+>> --save-path DETECTRON2_DATASETS/imagenet/annotations/cutler_imagenet1k_train_r1.json \ # path to save a new annotation file.
+>> --threshold 0.7
+>> ```
