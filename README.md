@@ -17,6 +17,7 @@ git clone https://github.com/YFaris/UnionCut.git
 You may also need to install Detectron2. Please follow its instructions via the [library page](https://github.com/facebookresearch/detectron2) to install.
 
 ## Demo
+<p align="center"> <img src='doc/demop.png' align="center" > </p>
 ### UnionCut demo
 The core function of UnionCut is implemented in [/UnionCut/DINOinference.py](/UnionCut/DINOinference.py). You can run the demo with the following commands:
 ```
@@ -42,4 +43,25 @@ Your parent folder for all datasets/
       DUTS-TE-Image/*.jpg ...
       DUTS-TE-Mask/*.png ...
 ```
-We have provided a well-trained UnionSeg which can be found at _/UnionSeg/module/decoder_weights_niter600.pt_
+We have provided a well-trained UnionSeg, which can be found at _/UnionSeg/module/decoder_weights_niter600.pt_. If you would like to train your own UnionSeg, you can try the following procedure:
+1. collect and save UnionCut's output
+```
+cd ./tools/PseudoMaskGeneration/DUTS-TR
+mkdir ./h5
+python3 MultiProcess_TokenUnionCut_DUTS_TR_pseudo_mask_generation.py --dataset [the path of your parent folder for all datasets] --process-num [an int value to assign the number of subprocesses]
+```
+You can choose an appropriate number of subprocesses based on your computational resources by setting _--process-num_ to accelerate UnionCut's execution throughout the whole dataset in parallel. After it is done, an h5 file containing the information of images with corresponding UnionCut's output can be seen in the _h5_ folder created just now.
+
+2. train your UnionSeg
+Now you can train your own UnionSeg with the following commands:
+```
+cd ./UnionSeg
+python3 train.py --img-folder [the path of your parent folder for all datasets] --h5-path [the path of the h5 file pregenerated]
+```
+The training takes only a few minutes. After training, your UnionSeg will be saved at _/UnionSeg/module/decoder_weights_niter600.pt_
+
+Now you can try the demo of UnionSeg:
+```
+cd ./UnionSeg
+python3 inference.py --img-folder [the path of your folder containing test images] --uod-method [MaskCur or TokenCut] --use-cupy [True or False] --N [an int value for MaskCut maximum discovery times per image]
+```
