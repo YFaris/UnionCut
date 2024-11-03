@@ -135,7 +135,7 @@ In terms of the evaluation of class-agnostic instance segmentation, please follo
 
 ### Single Object Discovery
 #### Benchmark Preparation
-Please download the benchmarks ([VOC07](http://host.robots.ox.ac.uk/pascal/VOC/voc2007/index.html), [VOC12](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/index.html), and [COCO20K](https://cocodataset.org/#download)), within which COCO20K is a subset of COCO2014. The images list of COCO20K can be found [here](https://github.com/valeoai/LOST/blob/master/datasets/coco_20k_filenames.txt) After downloading all benchmarks, please organize them as the structure below:
+Please download the benchmarks ([VOC07](http://host.robots.ox.ac.uk/pascal/VOC/voc2007/index.html), [VOC12](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/index.html), and [COCO20K](https://cocodataset.org/#download)), within which COCO20K is a subset of COCO2014. The images list of COCO20K can be found [here](https://github.com/valeoai/LOST/blob/master/datasets/coco_20k_filenames.txt) After downloading all benchmarks, please organize them according to the structure below:
 ```
 Your parent folder for all datasets/
   VOC/
@@ -151,7 +151,9 @@ Your parent folder for all datasets/
       Annotations/*.xml ...
       SegmentationClass/*.png ...
       SegmentationObject/*.png ...
-  
+  coco/
+    train2014/*.jpg ...
+    annotations/instances_train2014.json
 ```
 
 ### Saliency Detection
