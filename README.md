@@ -14,7 +14,7 @@ This repository provides the implementation of UnionCut and UnionSeg, showing ex
 ```
 git clone https://github.com/YFaris/UnionCut.git
 ```
-You may also need to install Detectron2 if you would like to try the functions related to [CutLER](https://github.com/facebookresearch/CutLER/tree/main). Please follow its instructions via the [library page](https://github.com/facebookresearch/detectron2) to install.
+You may also need to install [Detectron2](https://github.com/facebookresearch/detectron2) if you would like to try the functions related to [CutLER](https://github.com/facebookresearch/CutLER/tree/main).
 
 ## Demo
 <p align="center"> <img src='doc/demo.png' align="center" > </p>
