@@ -17,7 +17,7 @@ git clone https://github.com/YFaris/UnionCut.git
 You may also need to install Detectron2. Please follow its instructions via the [library page](https://github.com/facebookresearch/detectron2) to install.
 
 ## Demo
-<p align="center"> <img src='doc/demop.png' align="center" > </p>
+<p align="center"> <img src='doc/demo.png' align="center" > </p>
 ### UnionCut demo
 The core function of UnionCut is implemented in [/UnionCut/DINOinference.py](/UnionCut/DINOinference.py). You can run the demo with the following commands:
 ```
