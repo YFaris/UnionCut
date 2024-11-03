@@ -1,7 +1,6 @@
 colored==2.2.4
 cupy_cuda12x==13.2.0
 detectron2.egg==info
-dino==0.0.6
 fvcore==0.1.5.post20221221
 h5py==3.11.0
 matplotlib==3.8.4
