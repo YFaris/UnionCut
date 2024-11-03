@@ -200,5 +200,5 @@ Similar to the previous section's pattern, the evaluation contains two steps: 1)
 
 ```
 cd ./Evaluation
-python3 saliency_metrics.py --h5-path [path of the pre-generated h5 file] --uod-method ["TokenGraphCut", "UnionSeg", "CutLER"] --dataset [name of the dataset, "VOC" or "COCO20K"] --gt-path [path of the ground truth folder/file]
+python3 saliency_metrics.py --h5-path [path of the pre-generated h5 file] --uod-method ["TokenGraphCut", "UnionSeg", "CutLER"] --dataset [name of the dataset, "ECSSD", "DUTS", or "DUTS-OMRON"] --gt-path [path of the ground truth folder]
 ```
