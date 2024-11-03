@@ -4,26 +4,30 @@ This is a **temporary, anonymous, and private** GitHub repository for the offici
 
 <p align="center"> <img src='doc/UnionCut_framework.png' align="center" > </p>
 
-_UnionCut receives an image as the input before a series of unit GraphCut is conducted with each patch chosen as the foreground seed. Red rectangles refer to patches selected as foreground seeds, and the blue areas indicate the "foreground" segmented by each unit GraphCut corresponding to the chosen foreground seeds. By aggregating "foreground" areas given by each unit GraphCut, a heat map indicating the foreground union in the image can be obtained. Next, thresholding the intensity-inverted heat map is followed by rectification with a corner prior, resulting in a binary mask of the foreground union in the image._
+_"UnionCut receives an image as the input before a series of unit GraphCut is conducted with each patch chosen as the foreground seed. Red rectangles refer to patches selected as foreground seeds, and the blue areas indicate the "foreground" segmented by each unit GraphCut corresponding to the chosen foreground seeds. By aggregating "foreground" areas given by each unit GraphCut, a heat map indicating the foreground union in the image can be obtained. Next, thresholding the intensity-inverted heat map is followed by rectification with a corner prior, resulting in a binary mask of the foreground union in the image."_
 
 **Please do not conduct any further development based on the code without the author's permission.
 The copyright belongs to the author of the paper titled "Robust Foreground Priors for Enhanced Unsupervised Object Discovery".**
 
 ## Install
 This repository provides the implementation of UnionCut and UnionSeg, showing examples of combining them with existing unsupervised object discovery (UOD) algorithms (e.g. [TokenCut](https://ieeexplore.ieee.org/document/10224285?denied=) and [MaskCut](https://people.eecs.berkeley.edu/~xdwang/projects/CutLER/)). Clone this repository first and install other dependencies (e.g. CuPy, Numpy, torch, and h5py), whose details can be seen in [requirements.txt](/requirements.txt).
-
 ```
 git clone https://github.com/YFaris/UnionCut.git
 ```
-
 You may also need to install Detectron2. Please follow its instructions via the [library page](https://github.com/facebookresearch/detectron2) to install.
-
 
 ## Demo
 ### UnionCut demo
 The core function of UnionCut is implemented in [/UnionCut/DINOinference.py](/UnionCut/DINOinference.py). You can run the demo with the following commands:
-
 ```
 cd ./UnionCut
 python3 DINOinference.py --img-folder [the path of your folder containing test images]
 ```
+This script will create three windows for visualization: the original image, its foreground union given by UnionCut, and the object discovery result by TokenCut+UnionCut. The user can click '_q_' to quit the demo, '_s_' to save the result to _/UnionCut/demo/_, and any other key to the next image.
+
+We also provide a Cython version of UnionCut, which runs 2 times faster than the Python one. It can be run by the command below:
+```
+python3 DINOinferenceCython.py --img-folder [the path of your folder containing test images]
+```
+
+### UnionSeg demo
