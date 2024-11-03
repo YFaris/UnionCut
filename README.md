@@ -51,7 +51,7 @@ cd ./tools/PseudoMaskGeneration/DUTS-TR
 mkdir ./h5
 python3 MultiProcess_TokenUnionCut_DUTS_TR_pseudo_mask_generation.py --dataset [the path of your parent folder for all datasets] --process-num [an int value to assign the number of subprocesses]
 ```
-You can choose an appropriate number of subprocesses based on your computational resources by setting _--process-num_ to accelerate UnionCut's execution throughout the whole dataset in parallel. After it is done, an h5 file containing the information of images with corresponding UnionCut's output can be seen in the _h5_ folder created just now.
+You can choose an appropriate number of subprocesses based on your computational resources by setting _--process-num_ to accelerate UnionCut's execution throughout the whole dataset in parallel. The step may take a few hours. After it is done, an h5 file containing the information of images with corresponding UnionCut's output can be seen in the _h5_ folder created just now.
 
 2. train your UnionSeg
 Now you can train your own UnionSeg with the following commands:
