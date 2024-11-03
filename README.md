@@ -98,7 +98,7 @@ Now you can use CutLER's training code to train a class-agnostic [Cascade Mask-R
 >> ```
 You should stop training at 10,000 iterations to avoid underfitting since we apply a big weight decay in the first round warm-up training.
 
-Then you shall use the trained model to update pseudo-annotations of each image in the dataset:
+Then, you shall use the trained model to update pseudo-annotations of each image in the dataset:
 > 4. update annotations
 >> ```
 >> python train_net.py --num-gpus 8 \
@@ -124,14 +124,34 @@ After that, the model should be further trained for 60,000 iterations to obtain 
 >> MODEL.WEIGHTS output/model_0009999.pth \ # load previous stage/round checkpoints
 >> OUTPUT_DIR output/self-train-r1/ # path to save checkpoints
 >> ```
-Note that the training should be stopped at 60,000 iterations.
+Note that the training should be stopped at 60,000 iterations to avoid over-fitting.
 
 ## Evaluation
 The evaluation of UOD methods on single object discovery and saliency detection follows the pattern below:
 1. collecting the output of UOD methods and saving to h5 files;
 2. running the metrics script with the h5 file and ground truth file as the input for evaluation
 
-In terms of the evaluation of class-agnostic instance segmentation, please follow the instructions in [CutLER's official guidelines]((https://github.com/facebookresearch/CutLER/tree/main)). Here we only demo the evaluation o the former two tasks
+In terms of the evaluation of class-agnostic instance segmentation, please follow the instructions in [CutLER's official guidelines]((https://github.com/facebookresearch/CutLER/tree/main)). Here we only demo the evaluation of the former two tasks.
+
 ### Single Object Discovery
+#### Benchmark Preparation
+Please download the benchmarks ([VOC07](http://host.robots.ox.ac.uk/pascal/VOC/voc2007/index.html), [VOC12](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/index.html), and [COCO20K](https://cocodataset.org/#download)), within which COCO20K is a subset of COCO2014. The images list of COCO20K can be found [here](https://github.com/valeoai/LOST/blob/master/datasets/coco_20k_filenames.txt) After downloading all benchmarks, please organize them as the structure below:
+```
+Your parent folder for all datasets/
+  VOC/
+    VOC2007/VOCdevkit/VOC2007/
+      JPEGImages/*.jpg ...
+      ImageSets
+      Annotations/*.xml ...
+      SegmentationClass/*.png ...
+      SegmentationObject/*.png ...
+    /VOC2012/VOCtrainval_11-May-2012/VOCdevkit/VOC2012/
+      JPEGImages/*.jpg ...
+      ImageSets
+      Annotations/*.xml ...
+      SegmentationClass/*.png ...
+      SegmentationObject/*.png ...
+  
+```
 
 ### Saliency Detection
