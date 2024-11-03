@@ -18,6 +18,7 @@ You may also need to install Detectron2. Please follow its instructions via the 
 
 ## Demo
 <p align="center"> <img src='doc/demo.png' align="center" > </p>
+
 ### UnionCut demo
 The core function of UnionCut is implemented in [/UnionCut/DINOinference.py](/UnionCut/DINOinference.py). You can run the demo with the following commands:
 ```
@@ -65,3 +66,4 @@ Now you can try the demo of UnionSeg:
 cd ./UnionSeg
 python3 inference.py --img-folder [the path of your folder containing test images] --uod-method [MaskCur or TokenCut] --use-cupy [True or False] --N [an int value for MaskCut maximum discovery times per image]
 ```
+Similar to the UnionCut demo, you can see the visualization of the input image, foreground union given by UnionSeg, and discovery result by TokenCut/MaskCut+UnionSeg. You can press '_q_' to quit the demo, '_s_' to save the result to _/UnionSeg/demo/_, and any other key to the next image.
