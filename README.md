@@ -85,7 +85,7 @@ Note that --realN is the argument for changing the maximum discovery times. The 
 
 If you run the command above with multiple processes for acceleration, you also need to merge the output of each process following official CutLER's instructions:
 > 2. Merge results
->> ```
+>> ```o assign the number of subprocesses]
 >> python merge_jsons.py --base-dir /path/to/save/annotations --num-folder-per-job 2 --fixed-size 480 --tau 0.15 --N 3 --save-path imagenet_train_fixsize480_tau0.15_N3.json
 >> ```
 
@@ -135,7 +135,7 @@ In terms of the evaluation of class-agnostic instance segmentation, please follo
 
 ### Single Object Discovery
 #### Benchmark Preparation
-Please download the benchmarks ([VOC07](http://host.robots.ox.ac.uk/pascal/VOC/voc2007/index.html), [VOC12](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/index.html), and [COCO20K](https://cocodataset.org/#download)), within which COCO20K is a subset of COCO2014. The images list of COCO20K can be found [here](https://github.com/valeoai/LOST/blob/master/datasets/coco_20k_filenames.txt) After downloading all benchmarks, please organize them according to the structure below:
+Please download the benchmarks ([VOC07](http://host.robots.ox.ac.uk/pascal/VOC/voc2007/index.html), [VOC12](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/index.html), and [COCO20K](https://cocodataset.org/#download)), within which COCO20K is a subset of COCO2014. The images list of COCO20K can be found [here](https://github.com/valeoai/LOST/blob/master/datasets/coco_20k_filenames.txt). After downloading all benchmarks, please organize them according to the structure below:
 ```
 Your parent folder for all datasets/
   VOC/
@@ -154,6 +154,20 @@ Your parent folder for all datasets/
   coco/
     train2014/*.jpg ...
     annotations/instances_train2014.json
+```
+#### Discovery Result Collection
+In _/tools/PseudoMaskGeneration_, you can find seven subfolders named corresponding to the dataset. In each subfolder, there are two scripts, one is for TokenCut+UnionCut (_tools/PseudoMaskGeneration/{DatasetName}/MultiProcess_TokenUnionCut\_{DatasetName}\_pseudo_mask_generation_) and the other one is for TokenCut+UnionSeg (_tools/PseudoMaskGeneration/{DatasetName}/MultiProcess_TokenUnionSeg\_{DatasetName}\_pseudo_mask_generation_). Take TokenCut+UnionCut and VOC07 as an example, to obtain the object discovery result, you can run the following command:
+```
+cd ./tools/PseudoMaskGeneration/VOC07
+mkdir ./h5
+python3 MultiProcess_TokenUnionCut_VOC2007_pseudo_mask_generation.py --dataset [the path of your parent folder for all datasets] --process-num [an int value to assign the number of subprocesses]
+```
+When it is done, you will find an h5 file created under _./h5_, containing the UOD result of TokenCut+UnionCut on VOC07.
+
+To evaluate the single object discovery performance of TokenCut+UnionCut on VOC07 with CorLoc as the metrics, you can run the following commands:
+```
+cd ./Evaluation
+python3 CorLoc.py --h5-path [path of the pre-generated h5 file] 
 ```
 
 ### Saliency Detection
