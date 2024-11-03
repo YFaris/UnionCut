@@ -99,7 +99,7 @@ def get_bboxes(xml_path):
         xmax_data = int(float(xmax.childNodes[0].data))
         # print(xmax_data)
         ymax = bndbox.getElementsByTagName('ymax')[0]
-        ymax_data = int(float(ymax.childNodes[0].data))
+        ymax_data = int(float(ymax.childNodes[0].data))TokenGraphCut
         bboxes.append([xmin_data, ymin_data, xmax_data, ymax_data])
     return image_name, bboxes
 
@@ -223,7 +223,7 @@ if __name__ == "__main__":
     parser.add_argument('--h5-path', type=str,
                         default="/media/wzl/T7/DataSet/VOC/VOC2007/VOCdevkit/VOC2007/JPEGImages/",
                         help='path of the pre-generated h5 file of UOD results')
-    parser.add_argument('--uod-method', type=str, default="UnionSeg", choices=["UnionSeg", "CutLER"],
+    parser.add_argument('--uod-method', type=str, default="UnionSeg", choices=["TokenGraphCut", "UnionSeg", "CutLER"],
                         help='UOD method used to generate the h5 file')
     parser.add_argument('--dataset', type=str, default="VOC", choices=["VOC", "COCO20K"], help='name of the benchmark')
     parser.add_argument('--gt-path', type=str, default="/home/wzl/DataSet/VOC/VOC2007/VOCdevkit/VOC2007/Annotations/",
