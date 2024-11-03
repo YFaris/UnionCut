@@ -14,7 +14,7 @@ This repository provides the implementation of UnionCut and UnionSeg, showing ex
 ```
 git clone https://github.com/YFaris/UnionCut.git
 ```
-You may also need to install Detectron2. Please follow its instructions via the [library page](https://github.com/facebookresearch/detectron2) to install.
+You may also need to install Detectron2 if you would like to try the functions related to [CutLER](https://github.com/facebookresearch/CutLER/tree/main). Please follow its instructions via the [library page](https://github.com/facebookresearch/detectron2) to install.
 
 ## Demo
 <p align="center"> <img src='doc/demo.png' align="center" > </p>
@@ -44,7 +44,7 @@ Your parent folder for all datasets/
       DUTS-TE-Image/*.jpg ...
       DUTS-TE-Mask/*.png ...
 ```
-We have provided a well-trained UnionSeg, which can be found at _/UnionSeg/module/decoder_weights_niter600.pt_. If you would like to train your own UnionSeg, you can try the following procedure:
+We have provided a well-trained UnionSeg, which can be found at _/UnionSeg/module/decoder_weights_niter600.pt_. Our training codes of UnionSeg are mostly borrowed from [FOUND](https://github.com/valeoai/FOUND/tree/main). If you would like to train your own UnionSeg, you can try the following procedure:
 1. collect and save UnionCut's output
 ```
 cd ./tools/PseudoMaskGeneration/DUTS-TR
