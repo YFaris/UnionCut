@@ -164,10 +164,41 @@ python3 MultiProcess_TokenUnionCut_VOC2007_pseudo_mask_generation.py --dataset [
 ```
 When it is done, you will find an h5 file created under _./h5_, containing the UOD result of TokenCut+UnionCut on VOC07.
 
-To evaluate the single object discovery performance of TokenCut+UnionCut on VOC07 with CorLoc as the metrics, you can run the following commands:
+You may also be interested in collecting the output of our CutLER+UnionSeg. You can do this by running _/tools/CascadeMaskRCNN/h5_generation.py_. Before running, you need to modify three parameters in the code:
+```
+model_path = "path of the trained model's checkpoint"
+dataset_name = "VOC07"  # name of the dataset, choices from ["VOC07", "VOC12", "DUTS-TE", "ECSSD", "DUTS-OMRON"]
+dataset_path = "path of the parent folder for all datasets/"
+```
+To evaluate the single object discovery performance of the method on the selected benchmark with CorLoc as the metrics, you can run the following commands:
 ```
 cd ./Evaluation
-python3 CorLoc.py --h5-path [path of the pre-generated h5 file] 
+python3 CorLoc.py --h5-path [path of the pre-generated h5 file] --uod-method ["TokenGraphCut", "UnionSeg", "CutLER"] --dataset [name of the dataset, "VOC" or "COCO20K"] --gt-path [path of the ground truth folder/file]
 ```
+As for the choice of --uod-method, "TokenGraphCut", "UnionSeg", and "CutLER" are for TokenCut+UnionCut, TokenCut+UnionSeg, and CutLER+UnionSeg, respectively.
 
 ### Saliency Detection
+#### Benchmark Preparation
+Please download the benchmarks: [DUTS-TE]([http://host.robots.ox.ac.uk/pascal/VOC/voc2007/index.html](http://saliencydetection.net/duts/)), [DUTS-OMRON](http://saliencydetection.net/dut-omron/), and [ECSSD](https://www.cse.cuhk.edu.hk/leojia/projects/hsaliency/dataset.html). After downloading all benchmarks, please organize them according to the structure below:
+```
+Your parent folder for all datasets/
+  DUTS/
+    DUTS-TR/
+      DUTS-TR-Image/*.jpg ...
+      DUTS-TR-Mask/*.png ...
+    DUTS-TE/
+      DUTS-TE-Image/*.jpg ...
+      DUTS-TE-Mask/*.png ...
+  DUTS-OMRON/
+    DUT-OMRON-image/DUT-OMRON-image/*.jpg ...
+    DUT-OMRON-gt-pixelwise.zip/pixelwiseGT-new-PNG/*.png ...
+  ECSSD/
+    images/*.jpg ...
+    ground_truth_mask/*.png ...
+```
+Similar to the previous section's pattern, the evaluation contains two steps: 1) collecting algorithm output into h5 files and 2) doing the evaluation. The procedure of the first step is the same as the previous section. As for evaluation, you can do it with the following commands:
+
+```
+cd ./Evaluation
+python3 saliency_metrics.py --h5-path [path of the pre-generated h5 file] --uod-method ["TokenGraphCut", "UnionSeg", "CutLER"] --dataset [name of the dataset, "VOC" or "COCO20K"] --gt-path [path of the ground truth folder/file]
+```
