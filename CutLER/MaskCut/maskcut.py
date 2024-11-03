@@ -177,6 +177,7 @@ if __name__ == "__main__":
     parser.add_argument('--fixed_size', type=int, default=480, help='rescale the input images to a fixed size')
     parser.add_argument('--pretrain_path', type=str, default=None, help='path to pretrained model')
     parser.add_argument('--N', type=int, default=3, help='the maximum number of pseudo-masks per image')
+    parser.add_argument('--realN', type=int, default=5, help='the real maximum number of pseudo-masks per image')
     parser.add_argument('--cpu', action='store_true', help='use cpu')
     parser.add_argument('--use-cupy', type=bool, default=False, help='use cupy for NCut')
 
@@ -235,7 +236,7 @@ if __name__ == "__main__":
                 TokenUnionSeg = UnionSegMaster(image, tau=args.tau, eps=1e-5, UnionSegPatchSize=8, NCutPatchSize=8,
                                                UnionSegResize=224,
                                                NCutResize=args.fixed_size, device="cpu", UnionSegOutput=raw_fore_union,
-                                               NCutFeatures=ks, NCutCosSimilarityMatrix=cos_similarity_matrix, use_cupy=args.use_cupy)
+                                               NCutFeatures=ks, NCutCosSimilarityMatrix=cos_similarity_matrix, use_cupy=args.use_cupy, N=args.realN)
                 masks, fore_union = TokenUnionSeg.maskcut_segmentation(vis=False)
                 if masks.shape[0] == 0:
                     print(f'Skipping {img_name}')
