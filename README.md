@@ -75,4 +75,10 @@ We use the cookbook of [CutLER](https://github.com/facebookresearch/CutLER/tree/
 3. replace CutLER's training setting configuration files (_CutLER/cutler/model_zoo/configs/CutLER-ImageNet/cascade_mask_rcnn_R_50_FPN_self_train.yaml_ and _CutLER/cutler/model_zoo/configs/CutLER-ImageNet
 /cascade_mask_rcnn_R_50_FPN.yaml_) with our version, i.e _/CutLER/configs/cascade_mask_rcnn_R_50_FPN_self_train.yaml_ and _/CutLER/configs/cascade_mask_rcnn_R_50_FPN.yaml_.
 
-Now you can follow the instructions of CutLER to generate pseudo annotations for ImageNet (you may need to prepare the dataset in advance following the instructions of CutLER)
+Now you can follow the instructions of CutLER to generate pseudo annotations for [ImageNet](https://www.image-net.org/) (you may need to prepare the dataset in advance following the instructions of CutLER). Here are some examples:
+> 1. Generate pseudo annotations for ImageNet with our MaskCut+UnionSeg
+>> ```
+>> cd maskcut
+>> python maskcut.py --vit-arch base --patch-size 8 --tau 0.15 --fixed_size 480 --N 3 --num-folder-per-job 1000 --job-index 0 --dataset-path /path/to/dataset/traindir --out-dir /path/to/save/annotations --use-cupy True
+>> ```
+Note that the argument --N cannot directly change the maximum discovery times of our MaskCut+UnionSeg as it is in CutLER's original implementation. It only affects the filename of generated annotation files. During our 
