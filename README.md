@@ -98,7 +98,7 @@ Now you can use CutLER's training code to train a class-agnostic [Cascade Mask-R
 >> ```
 You should stop training at 10,000 iterations to avoid underfitting since we apply a big weight decay in the first round warm-up training.
 
-Then you shall use the resulted model to update pseudo-annotations of each image in the dataset:
+Then you shall use the trained model to update pseudo-annotations of each image in the dataset:
 > 4. update annotations
 >> ```
 >> python train_net.py --num-gpus 8 \
@@ -114,3 +114,24 @@ Then you shall use the resulted model to update pseudo-annotations of each image
 >> --save-path DETECTRON2_DATASETS/imagenet/annotations/cutler_imagenet1k_train_r1.json \ # path to save a new annotation file.
 >> --threshold 0.7
 >> ```
+
+After that, the model should be further trained for 60,000 iterations to obtain the final model:
+> 5. self-training
+>> ```
+>> python train_net.py --num-gpus 8 \
+>> --config-file model_zoo/configs/CutLER-ImageNet/cascade_mask_rcnn_R_50_FPN_self_train.yaml \
+>> --train-dataset imagenet_train_r1 \
+>> MODEL.WEIGHTS output/model_0009999.pth \ # load previous stage/round checkpoints
+>> OUTPUT_DIR output/self-train-r1/ # path to save checkpoints
+>> ```
+Note that the training should be stopped at 60,000 iterations.
+
+## Evaluation
+The evaluation of UOD methods on single object discovery and saliency detection follows the pattern below:
+1. collecting the output of UOD methods and saving to h5 files;
+2. running the metrics script with the h5 file and ground truth file as the input for evaluation
+
+In terms of the evaluation of class-agnostic instance segmentation, please follow the instructions in [CutLER's official guidelines]((https://github.com/facebookresearch/CutLER/tree/main)). Here we only demo the evaluation o the former two tasks
+### Single Object Discovery
+
+### Saliency Detection
