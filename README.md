@@ -10,5 +10,10 @@ _UnionCut receives an image as the input before a series of unit GraphCut is con
 The copyright belongs to the author of the paper titled "Robust Foreground Priors for Enhanced Unsupervised Object Discovery".**
 
 ## Install
-This repository provides the implementation of UnionCut and UnionSeg, showing examples of combining them with existing unsupervised object discovery (UOD) algorithms (e.g. TokenCut and MaskCut)
+This repository provides the implementation of UnionCut and UnionSeg, showing examples of combining them with existing unsupervised object discovery (UOD) algorithms (e.g. [TokenCut](https://ieeexplore.ieee.org/document/10224285?denied=) and MaskCut)
 
+```
+git clone https://github.com/YFaris/UnionCut.git
+```
+
+  
