@@ -72,5 +72,7 @@ Similar to the UnionCut demo, you can see the visualization of the input image, 
 We use the cookbook of [CutLER](https://github.com/facebookresearch/CutLER/tree/main) with our UnionSeg to train a class-agnostic instance segmentation model. For the installation of CutLER we refer you to the original [CutLER's repository](https://github.com/facebookresearch/CutLER/tree/main). After setting up the official CutLER's implementation, you need to follow the instructions below to combine our UnionSeg with CutLER:
 1. copy our UnionSeg package at _/CutLER/third_party/UnionSeg_ under CutLER's corresponding directory: _CutLER/third_party/_
 2. replace CutLER's official implementation of MaskCut (_CutLER/maskcut/maskcut.py_) with our MaskCut+UnionSeg (_UnionCut/CutLER/MaskCut/maskcut.py_)
+3. replace CutLER's training setting configuration files (_CutLER/cutler/model_zoo/configs/CutLER-ImageNet/cascade_mask_rcnn_R_50_FPN_self_train.yaml_ and _CutLER/cutler/model_zoo/configs/CutLER-ImageNet
+/cascade_mask_rcnn_R_50_FPN.yaml_) with our version, i.e _/CutLER/configs/cascade_mask_rcnn_R_50_FPN_self_train.yaml_ and _/CutLER/configs/cascade_mask_rcnn_R_50_FPN.yaml_.
 
 Now you can follow the instructions of CutLER to generate pseudo annotations for ImageNet (you may need to prepare the dataset in advance following the instructions of CutLER)
