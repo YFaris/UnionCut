@@ -4,7 +4,7 @@ This is a **temporary, anonymous, and private** GitHub repository for the offici
 
 <p align="center"> <img src='doc/UnionCut_framework.png' align="center" > </p>
 
-_"UnionCut receives an image as the input before a series of unit GraphCut is conducted with each patch chosen as the foreground seed. Red rectangles refer to patches selected as foreground seeds, and the blue areas indicate the "foreground" segmented by each unit GraphCut corresponding to the chosen foreground seeds. By aggregating "foreground" areas given by each unit GraphCut, a heat map indicating the foreground union in the image can be obtained. Next, thresholding the intensity-inverted heat map is followed by rectification with a corner prior, resulting in a binary mask of the foreground union in the image."_
+_"UnionCut receives an image as the input before a series of Unit Background Voters (UBV) are conducted with each patch chosen as the seed. Red rectangles refer to the seed patch of each UBV, and the blue areas indicate the UBV's output of the region similar to its seed patch. By aggregating outputs of all UBVs, a heat map indicating the foreground union in the image can be obtained. Next, thresholding the intensity-inverted heat map is followed by rectification with a corner prior, resulting in a binary mask of the foreground union in the image."_
 
 **Please do not conduct any further development based on the code without the author's permission.
 The copyright belongs to the author of the paper titled "Robust Foreground Priors for Enhanced Unsupervised Object Discovery".**
