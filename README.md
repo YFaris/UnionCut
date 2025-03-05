@@ -4,7 +4,7 @@ This is a **temporary, anonymous, and private** GitHub repository for the offici
 
 <p align="center"> <img src='doc/UnionCut_framework.png' align="center" > </p>
 
-_"UnionCut receives an image as the input before a series of Unit Background Voters (UBV) are conducted with each patch chosen as the seed. Red rectangles refer to the seed patch of each UBV, and the blue areas indicate the UBV's output of the region similar to its seed patch. By aggregating outputs of all UBVs, a heat map indicating the foreground union in the image can be obtained. Next, thresholding the intensity-inverted heat map is followed by rectification with a corner prior, resulting in a binary mask of the foreground union in the image."_
+_"UnionCut takes an image as input with features extracted from a frozen DINO, and applies Unit Voters (UVs) with each using one patch as its seed. Red rectangles refer to the seed patch, and blue areas indicate the UV\textquotesingle s output of the region similar to its seed patch. Aggregating all UV outputs yields a heat map of the background, which is then inverted, thresholded, and rectified with a corner prior to produce a binary mask of the image's foreground union."_
 
 **Please do not conduct any further development based on the code without the author's permission.
 The copyright belongs to the author of the paper titled "Robust Foreground Priors for Enhanced Unsupervised Object Discovery".**
