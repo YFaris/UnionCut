@@ -7,7 +7,7 @@ This is a **temporary, anonymous, and private** GitHub repository for the offici
 _"UnionCut takes an image as input with features extracted from a frozen DINO, and applies Unit Voters (UVs) with each using one patch as its seed. Red rectangles refer to the seed patch, and blue areas indicate the UV\textquotesingle s output of the region similar to its seed patch. Aggregating all UV outputs yields a heat map of the background, which is then inverted, thresholded, and rectified with a corner prior to produce a binary mask of the image's foreground union."_
 
 **Please do not conduct any further development based on the code without the author's permission.
-The copyright belongs to the author of the paper titled "Robust Foreground Priors for Enhanced Unsupervised Object Discovery".**
+The copyright belongs to the author of the paper titled "Ensemble Foreground Management for Unsupervised Object Discovery".**
 
 ## Install
 This repository provides the implementation of UnionCut and UnionSeg, showing examples of combining them with existing unsupervised object discovery (UOD) algorithms (e.g. [TokenCut](https://ieeexplore.ieee.org/document/10224285?denied=) and [MaskCut](https://people.eecs.berkeley.edu/~xdwang/projects/CutLER/)). Clone this repository first and install other dependencies (e.g. CuPy, Numpy, torch, and h5py), whose details can be seen in [requirements.txt](/requirements.txt).
