@@ -4,7 +4,7 @@ This repository provides the official implementation of methods (i.e. UnionCut a
 
 <p align="center"> <img src='doc/UnionCut_framework.png' align="center" > </p>
 
-_"UnionCut takes an image as input with features extracted from a frozen DINO, and applies Unit Voters (UVs) with each using one patch as its seed. Red rectangles refer to the seed patch, and blue areas indicate the UV\textquotesingle s output of the region similar to its seed patch. Aggregating all UV outputs yields a heat map of the background, which is then inverted, thresholded, and rectified with a corner prior to produce a binary mask of the image's foreground union."_
+_"UnionCut takes an image as input with features extracted from a frozen DINO, and applies Unit Voters (UVs) with each using one patch as its seed. Red rectangles refer to the seed patch, and blue areas indicate the UV\textquotesingle s output of the region similar to its seed patch. Aggregating all UV's outputs yields a heat map of the background, which is then inverted, thresholded, and rectified with a corner prior to produce a binary mask of the image's foreground union."_
 
 ## Install
 This repository provides the implementation of UnionCut and UnionSeg, showing examples of combining them with existing unsupervised object discovery (UOD) algorithms (e.g. [TokenCut](https://ieeexplore.ieee.org/document/10224285?denied=) and [MaskCut](https://people.eecs.berkeley.edu/~xdwang/projects/CutLER/)). Clone this repository first and install other dependencies (e.g. CuPy, Numpy, torch, and h5py), whose details can be seen in [requirements.txt](/requirements.txt).
