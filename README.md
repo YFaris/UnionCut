@@ -2,6 +2,8 @@
 
 This repository provides the official implementation of methods (i.e. UnionCut and UnionSeg) proposed in the paper titled "Ensemble Foreground Management for Unsupervised Object Discovery" (ICCV2025).
 
+Link to the [preprint](https://arxiv.org/abs/2507.20860).
+
 <p align="center"> <img src='doc/UnionCut_framework.png' align="center" > </p>
 
 _"UnionCut takes an image as input with features extracted from a frozen DINO, and applies Unit Voters (UVs) with each using one patch as its seed. Red rectangles refer to the seed patch, and blue areas indicate the UV's output of the region similar to its seed patch. Aggregating all UV's outputs yields a heat map of the background, which is then inverted, thresholded, and rectified with a corner prior to produce a binary mask of the image's foreground union."_
