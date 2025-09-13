@@ -32,7 +32,7 @@ python3 DINOinferenceCython.py --img-folder [the path of your folder containing 
 ```
 
 ### UnionSeg demo
-UnionSeg is trained as a surrogate model of UnionCut, with UnionCut's output on [DUTS-TR](http://saliencydetection.net/duts/) dataset (10,553 images in the training part). Download the dataset first and organize the dataset in your local directory similar to the following style: 
+UnionSeg is trained as a surrogate model of UnionCut, with UnionCut's output on [DUTS-TR](http://saliencydetection.net/duts/) dataset (10,553 images in the training part) as pseudo-labels. Download the dataset first and organize the dataset in your local directory similar to the following style: 
 ```
 Your parent folder for all datasets/
   DUTS/
