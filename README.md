@@ -1,6 +1,6 @@
 # UnionCut
 
-This repository provides the official implementation of methods (i.e. UnionCut and UnionSeg) proposed in the paper titled "Ensemble Foreground Management for Unsupervised Object Discovery" (ICCV2025).
+This repository provides the official implementation of methods (i.e. UnionCut and UnionSeg) proposed in the paper titled "Ensemble Foreground Management for Unsupervised Object Discovery" (ICCV2025 Highlight).
 
 Link to the [preprint](https://arxiv.org/abs/2507.20860).
 
