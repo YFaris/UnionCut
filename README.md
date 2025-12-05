@@ -204,3 +204,16 @@ Similar to the previous section's pattern, the evaluation contains two steps: 1)
 cd ./Evaluation
 python3 saliency_metrics.py --h5-path [path of the pre-generated h5 file] --uod-method ["TokenGraphCut", "UnionSeg", "CutLER"] --dataset [name of the dataset, "ECSSD", "DUTS", or "DUTS-OMRON"] --gt-path [path of the ground truth folder]
 ```
+
+## Citation
+If you think UnionCut and UnionSeg are useful, please consider giving a citation.
+```
+@InProceedings{Wu_2025_ICCV,
+    author    = {Wu, Ziling and Moemeni, Armaghan and Caleb-Solly, Praminda},
+    title     = {Ensemble Foreground Management for Unsupervised Object Discovery},
+    booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
+    month     = {October},
+    year      = {2025},
+    pages     = {20268-20279}
+}
+```
