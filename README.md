@@ -69,6 +69,8 @@ python3 inference.py --img-folder [the path of your folder containing test image
 Similar to the UnionCut demo, you can see the visualization of the input image, foreground union given by UnionSeg, and discovery result by TokenCut/MaskCut+UnionSeg. You can press '_q_' to quit the demo, '_s_' to save the result to _/UnionSeg/demo/_, and any other key to the next image.
 
 ## CutLER+UnionSeg
+You can download our well-trained checkpoint of CutLER+UnionSeg thourhough this [link](https://drive.google.com/file/d/1_Etx88Ba9bbvHlITsxgmzX4EL3bzVGkO/view?usp=sharing). To demo, test, and evaluate the checkpoint, you can simply follow the cookbook of official [CutLER's repository](https://github.com/facebookresearch/CutLER/tree/main). If you would like to train your own CutLER+UnionSeg, please follow the instructions below:
+
 We use the cookbook of [CutLER](https://github.com/facebookresearch/CutLER/tree/main) with our UnionSeg to train a class-agnostic instance segmentation model. For the installation of CutLER we refer you to the original [CutLER's repository](https://github.com/facebookresearch/CutLER/tree/main). After setting up the official CutLER's implementation, you need to follow the instructions below to combine our UnionSeg with CutLER:
 1. copy our UnionSeg package at _/CutLER/third_party/UnionSeg_ under CutLER's corresponding directory: _CutLER/third_party/_
 2. replace CutLER's official implementation of MaskCut (_CutLER/maskcut/maskcut.py_) with our MaskCut+UnionSeg (_UnionCut/CutLER/MaskCut/maskcut.py_)
